@@ -3,16 +3,22 @@
 import {useForm} from "react-hook-form";
 import {ISkill} from "@/types/types";
 import {addNewSkill} from "@/services/skill";
+import toast from "react-hot-toast";
 
 const AddSkillPage = () => {
   const {register, handleSubmit, formState: {errors}} = useForm();
 
   const onSubmit = async (data: ISkill) => {
-    console.log(data)
-    const res = await addNewSkill(data);
-    console.log(res)
+    try {
+      const res = await addNewSkill(data);
+      if (!res.success) {
+        return toast.error(res.message);
+      }
+      toast.success(res.message);
+    } catch (e) {
+      console.log(e)
+    }
   };
-
 
   return (
     <div>

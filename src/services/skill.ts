@@ -14,7 +14,13 @@ export const addNewSkill = async (payload: ISkill) => {
 export const allSkill = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_API_URL}/skills`,
-    {cache: "no-store", next: {revalidate: 0}}
+    {cache: "no-store", next: {revalidate: 30}}
   );
   return await response.json();
+}
+
+export const deleteSkill = async (id:string) => {
+  return await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/skills/${id}`, {
+    method: 'DELETE',
+  });
 }

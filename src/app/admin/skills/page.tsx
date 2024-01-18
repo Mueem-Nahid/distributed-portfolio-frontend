@@ -3,8 +3,14 @@ import {ISkill} from "@/types/types";
 import SkillRow from "@/components/skill-row";
 
 const SkillsPage = async () => {
-  const skills = await allSkill();
-  console.log(skills)
+
+  const response = await allSkill();
+  let skills;
+
+  if (response.success) {
+    skills = response.data;
+  }
+
   return (
     <div className="p-4 sm:ml-64">
       <div className="overflow-x-auto shadow-md sm:rounded-lg">

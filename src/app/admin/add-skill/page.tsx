@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {useForm} from "react-hook-form";
 import {ISkill} from "@/types/types";
@@ -15,6 +15,7 @@ const AddSkillPage = () => {
         return toast.error(res.message);
       }
       toast.success(res.message);
+      location.replace("/admin/skills")
     } catch (e) {
       console.log(e)
     }

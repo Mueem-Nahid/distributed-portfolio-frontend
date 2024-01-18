@@ -3,15 +3,18 @@
 import Link from "next/link";
 import {ISkill} from "@/types/types";
 import {deleteSkill} from "@/services/skill";
-import React from "react";
+import {useRouter} from "next/navigation";
 
 type IProps = {
-  skill: ISkill
+  skill: ISkill,
 }
 
 const SkillRow = ({skill}: IProps) => {
+  const router = useRouter();
+
   const handleDelete = async (id: string) => {
     await deleteSkill(id);
+    router.refresh();
   }
 
   return (
@@ -23,7 +26,7 @@ const SkillRow = ({skill}: IProps) => {
         {skill.description}
       </td>
       <td className="px-6 py-4 flex gap-2">
-        <Link href={`skill/${skill._id}`}
+        <Link href={`skills/${skill._id}`}
               className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
           <svg className="w-5 h-5 text-blue-800 dark:text-blue-800" aria-hidden="true"
                xmlns="http://www.w3.org/2000/svg"

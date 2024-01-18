@@ -26,9 +26,14 @@ const ProjectRow = ({project}: IProps) => {
         {project.description}
       </td>
       <td className="px-6 py-4">
-        {project.stack.map((item, i) => (
-          <p key={i}>{item}</p>
-        ))}
+        <div className="flex flex-nowrap gap-1">
+          {project.stack.slice(0, 2).map((item, i) => (
+            <span key={i}
+                  className="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+              {item}
+            </span>
+          ))}
+        </div>
       </td>
       <td className="px-6 py-4 flex gap-2">
         <Link href={`projects/${project._id}`}

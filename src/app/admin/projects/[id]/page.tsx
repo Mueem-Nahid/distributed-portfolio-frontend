@@ -1,39 +1,39 @@
 "use client"
 
 import {useForm} from "react-hook-form";
-import {ISkill} from "@/types/types";
-import {addNewSkill, editSkill, getSkill} from "@/services/skill";
+import {IProject} from "@/types/types";
+import {editProject, getProject} from "@/services/project";
 import toast from "react-hot-toast";
 import {useEffect, useState} from "react";
 
-const EditSkillPage = ({params}: { params: { id: string } }) => {
-  const [skill, setSkill] = useState<ISkill>();
+const EditProjectPage = ({params}: { params: { id: string } }) => {
+  const [project, setProject] = useState<IProject>();
 
-  const {register, handleSubmit, formState: {errors, isDirty}, setValue, getValues } = useForm<ISkill>();
+  const {register, handleSubmit, formState: {errors, isDirty}, setValue, getValues} = useForm<IProject>();
 
   useEffect(() => {
-    const fetchSkill = async () => {
-      const response = await getSkill(params.id);
+    const fetchProject = async () => {
+      const response = await getProject(params.id);
       if (response.success) {
-        setSkill(response.data);
+        setProject(response.data);
         setValue("name", response.data.name);
         setValue("description", response.data.description);
       }
     };
-    fetchSkill();
+    fetchProject();
   }, [params.id]);
 
-  const onSubmit = async (data: ISkill) => {
+  const onSubmit = async (data: IProject) => {
     try {
       const formData = getValues(); // Retrieve current form values
       const isFormDirty = isDirty;
       if (isFormDirty) {
-        const res = await editSkill(params.id, formData);
+        const res = await editProject(params.id, formData);
         if (!res.success) {
           return toast.error(res.message);
         }
         toast.success(res.message);
-        location.replace("/admin/skills");
+        location.replace("/admin/projects");
       }
     } catch (e) {
       console.log(e)
@@ -45,11 +45,11 @@ const EditSkillPage = ({params}: { params: { id: string } }) => {
       {/* @ts-ignore */}
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto">
         <div className="mb-5">
-          <label htmlFor="skill" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Skill
+          <label htmlFor="project" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Project
             name</label>
           <input type="text" id="name"
                  {...register("name", {required: true})}
-                 defaultValue={skill?.name || ''}
+                 defaultValue={project?.name || ''}
                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                  required/>
         </div>
@@ -58,7 +58,7 @@ const EditSkillPage = ({params}: { params: { id: string } }) => {
                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
           <input type="text" id="description"
                  {...register("description", {required: true})}
-                 defaultValue={skill?.description || ''}
+                 defaultValue={project?.description || ''}
                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                  required/>
         </div>
@@ -70,4 +70,4 @@ const EditSkillPage = ({params}: { params: { id: string } }) => {
   );
 };
 
-export default EditSkillPage;
+export default EditProjectPage;

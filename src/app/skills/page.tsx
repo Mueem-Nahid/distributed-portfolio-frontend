@@ -1,10 +1,17 @@
 import Skills from "@/components/skills";
+import {allSkill} from "@/services/skill";
 
+const SkillPage = async () => {
+  let skills;
+  const response = await allSkill();
 
-const SkillPage = () => {
+  if (response.success) {
+    skills = response.data;
+  }
+
   return (
     <section className="flex flex-col items-center px-4">
-      <Skills/>
+      <Skills skills={skills}/>
     </section>
   );
 };

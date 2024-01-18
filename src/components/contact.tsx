@@ -9,6 +9,7 @@ import SubmitBtn from "./submit-btn";
 import toast from "react-hot-toast";
 
 export default function Contact() {
+  // @ts-ignore
   const { ref } = useSectionInView("Contact");
 
   return (

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
 
 export default function About() {
+  // @ts-ignore
   const { ref } = useSectionInView("About");
 
   return (

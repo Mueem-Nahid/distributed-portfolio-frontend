@@ -2,7 +2,7 @@
 
 import {useForm} from "react-hook-form";
 import {IProject} from "@/types/types";
-import {editProject, getProject} from "@/services/project";
+import {editProject} from "@/services/project";
 import toast from "react-hot-toast";
 import {useEffect, useState} from "react";
 
@@ -11,9 +11,20 @@ const EditProjectPage = ({params}: { params: { id: string } }) => {
 
   const {register, handleSubmit, formState: {errors, isDirty}, setValue, getValues} = useForm<IProject>();
 
+  const getAProject = async (id: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/projects/${id}`
+      );
+      return await response.json();
+    } catch (e) {
+      console.log(e)
+    }
+  };
+
   useEffect(() => {
     const fetchProject = async () => {
-      const response = await getProject(params.id);
+      const response = await getAProject(params.id);
       if (response.success) {
         setProject(response.data);
         setValue("name", response.data.name);

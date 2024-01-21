@@ -4,10 +4,14 @@ import {IProject} from "@/types/types";
 
 const ProjectsPage = async () => {
   let projects;
-  const response = await allProject();
+  try {
+    const response = await allProject();
 
-  if (response.success) {
-    projects = response.data;
+    if (response.success) {
+      projects = response.data;
+    }
+  } catch (e) {
+    console.log(e)
   }
 
   return (

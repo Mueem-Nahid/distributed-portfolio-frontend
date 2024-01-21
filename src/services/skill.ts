@@ -12,33 +12,49 @@ export const addNewSkill = async (payload: ISkill) => {
 }
 
 export const allSkill = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/skills`,
-    {next: {revalidate: 0}}
-  );
-  return await response.json();
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}/skills`,
+      {next: {revalidate: 0}}
+    );
+    return await response.json();
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export const getSkill = async (id: string) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_URL}/skills/${id}`
-  );
-  return await response.json();
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API_URL}/skills/${id}`
+    );
+    return await response.json();
+  } catch (e) {
+    console.log(e)
+  }
 };
 
 export const editSkill = async (id: string, updatedSkill: ISkill) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/skills/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(updatedSkill),
-  });
-  return await response.json();
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/skills/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedSkill),
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e)
+  }
 };
 
 export const deleteSkill = async (id: string) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/skills/${id}`, {
-    method: 'DELETE',
-  });
+  try {
+    return await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/skills/${id}`, {
+      method: 'DELETE',
+    });
+  } catch (e) {
+    console.log(e)
+  }
 }

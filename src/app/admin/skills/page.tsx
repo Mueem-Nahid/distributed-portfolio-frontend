@@ -4,10 +4,14 @@ import {ISkill} from "@/types/types";
 
 const SkillsPage = async () => {
   let skills;
-  const response = await allSkill();
+  try {
+    const response = await allSkill();
 
-  if (response.success) {
-    skills = response.data;
+    if (response.success) {
+      skills = response.data;
+    }
+  } catch (e) {
+    console.log(e)
   }
 
   return (

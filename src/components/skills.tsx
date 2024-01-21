@@ -36,7 +36,7 @@ export default function Skills({skills}: IProps) {
     >
       <SectionHeading>My skills</SectionHeading>
       <ul className="flex flex-wrap justify-center gap-2 text-lg text-gray-800">
-        {skills.map((skill, index) => (
+        {skills?.length && skills.length > 0 ? skills.map((skill, index) => (
           <motion.li
             className="bg-white borderBlack rounded-xl px-5 py-3 dark:bg-white/10 dark:text-white/80"
             key={index}
@@ -53,7 +53,9 @@ export default function Skills({skills}: IProps) {
               <p>{skill.description}</p>
             </div>
           </motion.li>
-        ))}
+        )) :
+          <p>No Skills</p>
+        }
       </ul>
     </section>
   );

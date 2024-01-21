@@ -18,11 +18,13 @@ export default function Projects({projects} : IProps) {
     <section ref={ref} id="projects" className="scroll-mt-28 mb-28">
       <SectionHeading>My projects</SectionHeading>
       <div>
-        {projects.map((project, index) => (
+        {projects?.length && projects.length > 0 ?  projects.map((project, index) => (
           <React.Fragment key={index}>
             <Project {...project} />
           </React.Fragment>
-        ))}
+        )) :
+        <p>No projects</p>
+        }
       </div>
     </section>
   );

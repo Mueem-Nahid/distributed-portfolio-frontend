@@ -2,18 +2,29 @@
 
 import {useForm} from "react-hook-form";
 import {ISkill} from "@/types/types";
-import {addNewSkill, editSkill, getSkill} from "@/services/skill";
+import {editSkill} from "@/services/skill";
 import toast from "react-hot-toast";
 import {useEffect, useState} from "react";
 
 const EditSkillPage = ({params}: { params: { id: string } }) => {
   const [skill, setSkill] = useState<ISkill>();
 
-  const {register, handleSubmit, formState: {errors, isDirty}, setValue, getValues } = useForm<ISkill>();
+  const {register, handleSubmit, formState: {errors, isDirty}, setValue, getValues} = useForm<ISkill>();
+
+  const getASkill = async (id: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/skills/${id}`
+      );
+      return await response.json();
+    } catch (e) {
+      console.log(e)
+    }
+  };
 
   useEffect(() => {
     const fetchSkill = async () => {
-      const response = await getSkill(params.id);
+      const response = await getASkill(params.id);
       if (response.success) {
         setSkill(response.data);
         setValue("name", response.data.name);

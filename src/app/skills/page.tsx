@@ -3,10 +3,14 @@ import {allSkill} from "@/services/skill";
 
 const SkillPage = async () => {
   let skills;
-  const response = await allSkill();
+  try {
+    const response = await allSkill();
 
-  if (response.success) {
-    skills = response.data;
+    if (response.success) {
+      skills = response.data;
+    }
+  } catch (e) {
+    console.log(e)
   }
 
   return (
